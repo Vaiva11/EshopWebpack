@@ -1,10 +1,13 @@
-import React from "react";
 import PropTypes from "prop-types";
-import "./index.css";
+import styled from "styled-components";
 
-function ProductsContainer({ children, className }) {
-  return <div className={`ProductsContainer ${className}`}>{children}</div>;
-}
+const ProductsContainer = styled.div`
+  margin: 0 auto;
+  display: flex;
+  width: 70%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
 
 ProductsContainer.propTypes = {
   children: PropTypes.node.isRequired,
