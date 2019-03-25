@@ -14,7 +14,8 @@
     "reset-css": "^4.0.1"
   },
   "scripts": {
-    "build": "echo build"
+    "build": "webpack --config webpack.config.prod.js",
+    "develop": "webpack-dev-server --config webpack.config.dev.js --color --open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -26,7 +27,14 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-syntax-object-rest-spread": "^7.2.0",
+    "@babel/polyfill": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^9.0.0",
+    "babel-loader": "^8.0.5",
     "css-loader": "^2.1.1",
     "eslint": "^5.12.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -44,6 +52,7 @@
     "sass-loader": "^7.1.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.2.1"
+    "webpack-dev-server": "^3.2.1",
+    "whatwg-fetch": "^3.0.0"
   }
 }
