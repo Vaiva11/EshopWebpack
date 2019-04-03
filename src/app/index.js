@@ -10,10 +10,12 @@ import {
   Switch,
 } from "react-router-dom";
 
-import { Shop, Favorites, Cart, PageNotFound, Login } from "./pages";
+import { Shop, Favorites, PageNotFound, Login } from "./pages";
 import { PageLayout, PrivateRoute } from "./components";
 import auth from "../auth";
 import shop from "../shop";
+
+const LazyCart = React.lazy(() => import("./pages/Cart"));
 
 class App extends React.Component {
   constructor(props) {
@@ -74,21 +76,23 @@ class App extends React.Component {
     const { loading, error } = this.props;
 
     return (
-      <Router>
-        <PageLayout navLinks={this.renderNav()}>
-          {error && <span>{error}</span>}
-          {loading && <PacmanLoader />}
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <PrivateRoute exact path="/favorites" component={Favorites} />
-            <Route exact path="/cart" component={Cart} />
-            <Route exact path="/shop" component={Shop} />
-            <Route exact path="/404" component={PageNotFound} />
-            <Redirect exact from="/" to="/shop" />
-            <Redirect to="/404" />
-          </Switch>
-        </PageLayout>
-      </Router>
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <Router>
+          <PageLayout navLinks={this.renderNav()}>
+            {error && <span>{error}</span>}
+            {loading && <PacmanLoader />}
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              <PrivateRoute exact path="/favorites" component={Favorites} />
+              <Route exact path="/cart" component={LazyCart} />
+              <Route exact path="/shop" component={Shop} />
+              <Route exact path="/404" component={PageNotFound} />
+              <Redirect exact from="/" to="/shop" />
+              <Redirect to="/404" />
+            </Switch>
+          </PageLayout>
+        </Router>
+      </React.Suspense>
     );
   }
 }
