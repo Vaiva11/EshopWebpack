@@ -1,4 +1,5 @@
 import React from "react";
+import Loadable from "react-loadable";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { PacmanLoader } from "react-spinners";
@@ -10,12 +11,21 @@ import {
   Switch,
 } from "react-router-dom";
 
-import { Shop, Favorites, PageNotFound, Login } from "./pages";
 import { PageLayout, PrivateRoute } from "./components";
 import auth from "../auth";
 import shop from "../shop";
 
+import Shop from "./pages/shop";
+import Favorites from "./pages/Favorites";
+import PageNotFound from "./pages/PageNotFound";
+//import Login from "./pages/Login";
+
 const LazyCart = React.lazy(() => import("./pages/Cart"));
+
+const LoadableLogin = Loadable({
+  loader: () => import("./pages/Login"),
+  loading: <div>Loading......</div>,
+});
 
 class App extends React.Component {
   constructor(props) {
@@ -82,7 +92,7 @@ class App extends React.Component {
             {error && <span>{error}</span>}
             {loading && <PacmanLoader />}
             <Switch>
-              <Route exact path="/login" component={Login} />
+              <Route exact path="/login" component={LoadableLogin} />
               <PrivateRoute exact path="/favorites" component={Favorites} />
               <Route exact path="/cart" component={LazyCart} />
               <Route exact path="/shop" component={Shop} />
