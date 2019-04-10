@@ -13,6 +13,7 @@
     "redux-api-middleware": "^3.0.1",
     "redux-thunk": "^2.3.0",
     "reset-css": "^4.0.1",
+    "seamless-immutable": "^7.1.4",
     "styled-components": "^4.2.0"
   },
   "scripts": {
